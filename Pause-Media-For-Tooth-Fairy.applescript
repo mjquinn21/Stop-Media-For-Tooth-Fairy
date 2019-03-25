@@ -67,4 +67,4 @@ end tell
 
 set volume without output muted
 
-tell application "BetterTouchTool" to refresh_widget "F9DE7399-0708-4620-A67B-E2AC1FC98515"
+--tell application "BetterTouchTool" to refresh_widget "AirPod Widget UUID"
