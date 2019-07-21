@@ -1,4 +1,5 @@
 set volume with output muted
+
 set pauseScript to "
 			var v = document.querySelector('video');
 			if (v.paused) {
@@ -21,35 +22,58 @@ set pauseHulu to "
 			}
 			"
 
-tell application "Google Chrome"
-	repeat with t in tabs of windows
-		
-	end repeat
-end tell
-
-tell application "Google Chrome"
-	repeat with t in tabs of windows
-		if URL of t contains "www.netflix.com/watch" then
-			tell t to execute javascript pauseScript
-		else if URL of t contains "www.youtube.com/watch?" then
-			tell t to execute javascript pauseScript
-		else if URL of t contains "open.spotify.com" then
-			tell t to execute javascript pauseSpotify
-		else if URL of t contains "www.hulu.com/watch" then
-			tell t to execute javascript pauseHulu
-		end if
-	end repeat
-end tell
-
-
 tell application "Spotify"
 	if it is running and player state is playing then pause
+	delay 0.25
 end tell
 
 
-tell application "iTunes"
+tell application "Music"
 	if it is running and player state is playing then pause
+	delay 0.25
 end tell
+
+tell application "Google Chrome"
+	if it is running then
+		repeat with t in tabs of windows
+			if URL of t contains "www.netflix.com/watch" then
+				tell t to execute javascript pauseScript
+				delay 0.25
+			else if URL of t contains "www.youtube.com/watch?" then
+				tell t to execute javascript pauseScript
+				delay 0.25
+			else if URL of t contains "open.spotify.com" then
+				tell t to execute javascript pauseSpotify
+				delay 0.25
+			else if URL of t contains "www.hulu.com/watch" then
+				tell t to execute javascript pauseHulu
+				delay 0.25
+			end if
+		end repeat
+	end if
+end tell
+
+
+tell application "Safari"
+	if it is running then
+		repeat with t in tabs of windows
+			if URL of t contains "www.netflix.com/watch" then
+				tell t to do JavaScript pauseScript
+				delay 0.25
+			else if URL of t contains "www.youtube.com/watch?" then
+				tell t to do JavaScript pauseScript
+				delay 0.25
+			else if URL of t contains "open.spotify.com" then
+				tell t to do JavaScript pauseSpotify
+				delay 0.25
+			else if URL of t contains "www.hulu.com/watch" then
+				tell t to do JavaScript pauseHulu
+				delay 0.25
+			end if
+		end repeat
+	end if
+end tell
+
 
 tell application "QuickTime Player"
 	if it is running then
@@ -57,12 +81,9 @@ tell application "QuickTime Player"
 			tell d
 				if playing is true then pause
 			end tell
+			delay 0.25
 		end repeat
 	end if
-end tell
-
-tell application "Noizio"
-	if it is running and playing is true then set playing to false
 end tell
 
 set volume without output muted
